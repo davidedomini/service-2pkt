@@ -1,3 +1,5 @@
+package it.unibo
+
 import it.unibo.tuprolog.core.Struct
 import it.unibo.tuprolog.core.Var
 import it.unibo.tuprolog.solve.classic.ClassicSolverFactory

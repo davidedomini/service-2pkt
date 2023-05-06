@@ -1,38 +1,34 @@
 package it.unibo
 
-import it.unibo.tuprolog.core.Struct
-import it.unibo.tuprolog.core.Var
-import it.unibo.tuprolog.solve.classic.ClassicSolverFactory
-import it.unibo.tuprolog.theory.parsing.ClausesParser
-
-
-class Person(val name: String)
+import it.unibo.adapter.Service
 
 fun main(args: Array<String>) {
 
-    val d = Person("Davide")
+    Service().start()
 
-    println(d.name)
-    /*println("Start")
-
+    /* Checks if isHalt
     val t = with(ClausesParser.withStandardOperators()){
         parseTheory("f :- f.")
     }
 
-    println("clauses")
-    t.clauses.forEach{ println(it) }
-    println("directives")
-    t.directives.forEach{ println(it) }
-
     val s = ClassicSolverFactory.solverOf(staticKb = t)
-    //val X = Var.of("X")
-
 
     println("First")
-    //s.solve(Struct.of("f."), 5).forEach { println("ciao ${it.isHalt}") }
+    s.solve(Struct.of("f."), 5).forEach { println("${it.isHalt}") }
     print(s.solveOnce(Struct.of("f")))
     println("Another one")
-    //println(s.solveOnce(Struct.of("f", X)))
+    //println(s.solveOnce(Struct.of("f", X)))*/
+
+    //OK with limit
+/*
+    val t = with(ClausesParser.withStandardOperators()){
+        parseTheory("f(1, davide).\nf(2, davide).")
+    }
+    val s = ClassicSolverFactory.solverOf(staticKb = t)
+    val X = Var.of("X")
+    println("First")
+    s.solve(Struct.of("f", X), SolveOptions.someEagerly(1)).forEach { println(it) }
+    println("Another one")
 
     println("End")*/
     

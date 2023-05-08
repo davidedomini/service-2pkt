@@ -10,6 +10,6 @@ import it.unibo.tuprolog.solve.SolveOptions
 import it.unibo.tuprolog.solve.classic.ClassicSolverFactory
 import it.unibo.tuprolog.theory.parsing.ClausesParser
 
-fun main(args: Array<String>) {
+fun main() {
     Service().start()
 }

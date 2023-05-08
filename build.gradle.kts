@@ -24,6 +24,8 @@ kotlin {
     jvmToolchain(8)
 }
 
-application {
+tasks.register<JavaExec>("run2pktService"){
+    group = "2pkt Service"
     mainClass.set("it.unibo.MainKt")
+    classpath = sourceSets["main"].runtimeClasspath
 }

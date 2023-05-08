@@ -5,6 +5,8 @@ import com.rabbitmq.client.Channel
 import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.DeliverCallback
 import com.rabbitmq.client.Delivery
+import it.unibo.request.RequestParser
+import it.unibo.controller.Controller
 import java.nio.charset.StandardCharsets
 
 class Service {
@@ -12,6 +14,7 @@ class Service {
     private val consumerTag = "2pkt-service"
 
     private var channel: Channel? = null
+    private val controller = Controller(this)
 
     fun start() {
         val factory = ConnectionFactory()
@@ -26,8 +29,11 @@ class Service {
         println("[$consumerTag] Waiting for messages...")
         val deliverCallback = DeliverCallback { consumerTag: String?, delivery: Delivery ->
             val message = String(delivery.body, StandardCharsets.UTF_8)
+            val request = RequestParser().parseRequest(message)
+
+            controller.solveAll(request) //Todo - check request.type to call the right method next or all
+
             println("[$consumerTag] Received message: $message")
-            //TODO - process the request and compute solutions
         }
         val cancelCallback = CancelCallback {
             println("[$it] was canceled")
@@ -39,8 +45,8 @@ class Service {
         channel!!.queueDeclare("responses", false, false, false, null)
     }
 
-    fun sendResponse() {
-        // TODO - should publish the solution(s) on the responses queue
+    fun sendResponse(response: String) {
+        channel!!.basicPublish("", "responses", null, response.toByteArray(StandardCharsets.UTF_8))
     }
 
 }

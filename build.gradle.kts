@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation("it.unibo.tuprolog:full:0.31.3")
     implementation("com.rabbitmq:amqp-client:5.9.0")
+    implementation("com.google.code.gson:gson:2.8.9")
     testImplementation(kotlin("test"))
 }
 

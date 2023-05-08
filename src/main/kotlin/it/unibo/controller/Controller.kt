@@ -27,7 +27,7 @@ class Controller(
                 .solve(goal, SolveOptions.someEagerlyWithTimeout(request.maxSol, request.timeout))
                 .take(request.maxSol)
                 .map { it.substitution }
-                .map { it.toString() }
+                .map { it.toString()}
                 .reduce { acc, string -> acc + string }
         service.sendResponse(solutions)
 

@@ -17,6 +17,7 @@ class Service {
     private val controller = Controller(this)
 
     fun start() {
+        println("Starting service...")
         val factory = ConnectionFactory()
         val connection = factory.newConnection("amqp://guest:guest@localhost:5672/")
         channel = connection.createChannel()
@@ -30,7 +31,6 @@ class Service {
         val deliverCallback = DeliverCallback { consumerTag: String?, delivery: Delivery ->
             val message = String(delivery.body, StandardCharsets.UTF_8)
             val request = RequestParser().parseRequest(message)
-
             controller.solveAll(request) //Todo - check request.type to call the right method next or all
 
             println("[$consumerTag] Received message: $message")

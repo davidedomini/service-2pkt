@@ -1,35 +1,15 @@
 package it.unibo
 
 import it.unibo.adapter.Service
+import it.unibo.request.RequestParser
+import it.unibo.tuprolog.core.Struct
+import it.unibo.tuprolog.core.Var
+import it.unibo.tuprolog.core.parsing.TermParser
+import it.unibo.tuprolog.core.parsing.TermParserImpl
+import it.unibo.tuprolog.solve.SolveOptions
+import it.unibo.tuprolog.solve.classic.ClassicSolverFactory
+import it.unibo.tuprolog.theory.parsing.ClausesParser
 
 fun main(args: Array<String>) {
-
     Service().start()
-
-    /* Checks if isHalt
-    val t = with(ClausesParser.withStandardOperators()){
-        parseTheory("f :- f.")
-    }
-
-    val s = ClassicSolverFactory.solverOf(staticKb = t)
-
-    println("First")
-    s.solve(Struct.of("f."), 5).forEach { println("${it.isHalt}") }
-    print(s.solveOnce(Struct.of("f")))
-    println("Another one")
-    //println(s.solveOnce(Struct.of("f", X)))*/
-
-    //OK with limit
-/*
-    val t = with(ClausesParser.withStandardOperators()){
-        parseTheory("f(1, davide).\nf(2, davide).")
-    }
-    val s = ClassicSolverFactory.solverOf(staticKb = t)
-    val X = Var.of("X")
-    println("First")
-    s.solve(Struct.of("f", X), SolveOptions.someEagerly(1)).forEach { println(it) }
-    println("Another one")
-
-    println("End")*/
-    
 }

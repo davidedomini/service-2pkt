@@ -7,6 +7,7 @@ import com.rabbitmq.client.DeliverCallback
 import com.rabbitmq.client.Delivery
 import it.unibo.request.RequestParser
 import it.unibo.controller.Controller
+import it.unibo.model.ComputationType
 import java.nio.charset.StandardCharsets
 
 class Service {
@@ -31,7 +32,11 @@ class Service {
         val deliverCallback = DeliverCallback { consumerTag: String?, delivery: Delivery ->
             val message = String(delivery.body, StandardCharsets.UTF_8)
             val request = RequestParser().parseRequest(message)
-            controller.solveAll(request) //Todo - check request.type to call the right method next or all
+
+            when(request.type){
+                ComputationType.ALL -> controller.solveAll(request)
+                ComputationType.NEXT -> controller.solveNext(request)
+            }
 
             println("[$consumerTag] Received message: $message")
         }

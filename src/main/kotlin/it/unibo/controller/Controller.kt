@@ -37,4 +37,8 @@ class Controller(
         //TODO
     }
 
+    fun reset() {
+        // TODO - delete computation
+    }
+
 }

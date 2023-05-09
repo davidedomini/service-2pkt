@@ -30,15 +30,14 @@ class Controller(
                 .map { it.toString()}
                 .reduce { acc, string -> acc + string }
         service.sendResponse(solutions)
-
     }
 
     fun solveNext(request: ComputationRequest){
         //TODO
     }
 
-    fun reset() {
-        // TODO - delete computation
+    fun reset(request: ComputationRequest) {
+        computations.removeComputation(request.id)
     }
 
 }

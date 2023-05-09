@@ -32,13 +32,11 @@ class Service {
         val deliverCallback = DeliverCallback { consumerTag: String?, delivery: Delivery ->
             val message = String(delivery.body, StandardCharsets.UTF_8)
             val request = RequestParser().parseRequest(message)
-
             when(request.type){
                 ComputationType.ALL -> controller.solveAll(request)
                 ComputationType.NEXT -> controller.solveNext(request)
-                ComputationType.RESET -> controller.reset()
+                ComputationType.RESET -> controller.reset(request)
             }
-
             println("[$consumerTag] Received message: $message")
         }
         val cancelCallback = CancelCallback {

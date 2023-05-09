@@ -36,6 +36,7 @@ class Service {
             when(request.type){
                 ComputationType.ALL -> controller.solveAll(request)
                 ComputationType.NEXT -> controller.solveNext(request)
+                ComputationType.RESET -> controller.reset()
             }
 
             println("[$consumerTag] Received message: $message")

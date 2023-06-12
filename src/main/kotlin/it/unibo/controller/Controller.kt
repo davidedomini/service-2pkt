@@ -1,6 +1,5 @@
 package it.unibo.controller
 
-import it.unibo.adapter.Service
 import it.unibo.model.ComputationsCollection
 import it.unibo.request.ComputationRequest
 import it.unibo.tuprolog.core.Struct
@@ -10,13 +9,11 @@ import it.unibo.tuprolog.solve.Solver
 import it.unibo.tuprolog.theory.parsing.ClausesParser
 import it.unibo.tuprolog.solve.classic.ClassicSolverFactory
 
-class Controller(
-    private val service: Service
-){
+class Controller{
 
     private val computations = ComputationsCollection()
 
-    fun solveAll(request: ComputationRequest) {
+    fun solveAll(request: ComputationRequest):String {
         val p = getSolverAndGoal(request)
         val solutions =
             p.first
@@ -25,10 +22,10 @@ class Controller(
                 .map { it.substitution }
                 .map { it.toString()}
                 .reduce { acc, string -> acc + string }
-        service.sendResponse(solutions)
+        return solutions
     }
 
-    fun solveNext(request: ComputationRequest){
+    fun solveNext(request: ComputationRequest): String{
         if(!computations.isPresent(request.id)) {
             val p = getSolverAndGoal(request)
             val iterator =
@@ -40,14 +37,12 @@ class Controller(
         }
         val solution = computations
             .nextSolution(request.id)
-        when(solution){
+        return when(solution){
             null -> {
                 computations.removeComputation(request.id)
-                service.sendResponse("No more solutions!")
+                "No more solutions!"
             }
-            else -> service.sendResponse(solution
-                .substitution
-                .toString())
+            else -> solution.substitution.toString()
         }
     }
 

@@ -29,6 +29,7 @@ fun Application.module() {
             val response = controller.solveNext(computationRequest)
             call.respondText(response, ContentType.Text.Plain)
         }
+
         post("/reset"){
             val request = call.receiveText()
             val computationRequest = Gson().fromJson(request, ComputationRequest::class.java)
@@ -40,6 +41,5 @@ fun Application.module() {
 
 fun main() {
     embeddedServer(Netty, port = 8080, module = Application::module).start(wait = true)
-
 }
 

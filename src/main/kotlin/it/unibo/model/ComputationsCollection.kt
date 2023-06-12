@@ -11,7 +11,7 @@ class ComputationsCollection {
     }
 
     fun removeComputation(id: String) {
-        computations = computations.filterNot { it.key == id }
+        computations = computations.filterNot { it.key.contains(id, ignoreCase = true) }
     }
 
     fun nextSolution(id: String): Solution? {
